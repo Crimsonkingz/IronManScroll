@@ -1,17 +1,3 @@
-var container = $('#container');
-var images = $('#images');
-
-var explosionL = $('#explosion-left');
-var explosionR = $('#explosion-right');
-var glass = $('#glass');
-
-var ironman = $('#ironman');
-
-var cta = $('#cta');
-var title = $('#title');
-
-$(function() {
-  // init
 // init ScrollMagic Controller
 var controller = new ScrollMagic.Controller();
 
@@ -87,4 +73,3 @@ controller.addScene([
   scene_title,
   scene_cta
 ]);
-});
