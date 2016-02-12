@@ -1,0 +1,47 @@
+
+
+#container {
+	position: relative;
+	margin: 10px auto;
+	width: 320px;
+	height: 320px;
+	background-color: transparent;
+	overflow: hidden;
+	
+}
+#images {
+	position: relative;
+	overflow: hidden;
+	height: 100%;
+}
+img {
+	position: absolute;
+	height: 320px;
+	width: 320px;
+	top: 100%;
+}
+#background {
+	top: 20px;
+}
+#title {
+	top:0;
+	left: -320px;
+	z-index: 3;
+}
+#ironman {
+
+	z-index: 2;
+}
+#glass {
+	z-index: 3;
+	top: 150px;
+}
+#cta {
+	z-index: 3;
+}
+#explosion-left, #explosion-right {
+	opacity:0;
+}
+p {
+	height: 1000px;
+}
