@@ -1,75 +1,39 @@
-// init ScrollMagic Controller
-var controller = new ScrollMagic.Controller();
+var container = document.getElementById("container");
 
-var tween_ironman = TweenLite.to('#ironman', 1, {
-  top: -5,
-  // ease: Power3.easeOut
-  ease: Power2.easeOut
+// Percentage of the container that is scrolled past visible
+var percentageViewable = function(elem) {      
+  var docViewTop = document.body.scrollTop;
+  // var docViewBottom = docViewTop + window.innerHeight;
+
+  var elemMiddle = elem.offsetTop + (elem.clientHeight/2);
+
+  var value = elemMiddle - docViewTop;
+  var perc = Math.round((value * 100) / window.innerHeight);
+
+  if (perc < 0) { return 0; }
+  if (perc > 100) { return 100; }
+
+  return perc;
+};
+
+// GSAP
+tl = new TimelineLite();
+tl.fromTo('#ironman', 0.1, {top:200, z:2}, {top:0, z:2}, -0.5);
+tl.fromTo('#title', 0.15, {top:100, opacity:0, z:3}, {top:0, z:3, opacity:0.99},0);
+tl.fromTo('#explosion_left', 0.15, {top:180, z:1}, {top:0, z:1, opacity:0.99},0);
+tl.fromTo('#explosion_right', 0.2, {top:200, z:1}, {top:0, z:1, opacity:0.99},0);
+tl.fromTo('#cta', 0.05, {top:100, z:3}, {top:-20, z:3},0);
+tl.fromTo('#glass', 0.15, {top:100, z:3}, {top:-20, z:3},0);
+// Stop from autoplaying
+tl.pause();
+
+// Update GSAP timeline based on scroll percentage
+window.addEventListener( 'scroll', function() { 
+  tl.pause();
+  var percView = percentageViewable(container);        
+  tl.progress((100-(percView))/100 );                
 });
-var tween_glass = TweenLite.to('#glass', 0.5, {
-  top:0,
-  ease: Power3.easeOut
+
+container.addEventListener('click', function(){
+  window.open('http://www.google.com', '_blank');
 });
-var tween_explosionL = TweenLite.to('#explosion-left', 0.8, {
-	top:0,
-  	opacity:0.99,
-  	ease: Power3.easeOut
-});
-var tween_explosionR = TweenLite.to('#explosion-right', 0.4, {
-	top:0,
-  	opacity:0.99,
-  	ease: Power3.easeOut
-});
-
-var tween_title = TweenLite.to('#title', 1, {
-	top:0,
-	left:0
-});
-var tween_cta = TweenLite.to('#cta', 1, {
-	top:0,
-	left:0
-});
-
-
-// Scale Scene
-var scene_ironman = new ScrollMagic.Scene({
-  triggerElement: '#container',
-    triggerHook: 'onEnter', 
-    offset: 100,
-  duration: 500
-})
-.setTween(tween_ironman);
-
-var scene_glass = new ScrollMagic.Scene({
-  triggerElement: '#container'
-})
-.setTween(tween_glass);
-
-var scene_explosionL = new ScrollMagic.Scene({
-  triggerElement: '#container'
-})
-.setTween(tween_explosionL);
-
-var scene_explosionR = new ScrollMagic.Scene({
-  triggerElement: '#container'
-})
-.setTween(tween_explosionR);
-
-var scene_title = new ScrollMagic.Scene({
-  triggerElement: '#container'
-})
-.setTween(tween_title);
-
-var scene_cta = new ScrollMagic.Scene({
-  triggerElement: '#container'
-})
-.setTween(tween_cta).addIndicators();
- 
-controller.addScene([
-  scene_ironman,
-  scene_glass,
-  scene_explosionL,
-  scene_explosionR,
-  scene_title,
-  scene_cta
-]);
